@@ -4,18 +4,23 @@ import dash_auth
 import dash_html_components as html
 import dash_core_components as dcc
 
+# edit these 3 variables
+DASH_APP_NAME = '<dash-app-name>'
+DASH_APP_URL = 'https://<your-dash-domain>/<dash-app-name>'
+DASH_DOMAIN = 'https://<your-dash-domain>'
+
 app = dash.Dash('auth')
 server = app.server
 auth = dash_auth.PlotlyAuth(
-    app, 'dash-auth-demo', 'private',
-    'https://dash-demo.plotly.host/dash-auth-demo')
+    app, DASH_APP_NAME, 'private', DASH_APP_URL
+)
 
 app.layout = html.Div([
     html.H1('Welcome to the app'),
     html.H3('You are successfully authorized'),
     auth.create_logout_button(
         label='Sign out',
-        redirect_to='https://dash-demo.plotly.host'),
+        redirect_to=DASH_DOMAIN),
     dcc.Dropdown(
         id='dropdown',
         options=[{'label': i, 'value': i} for i in ['A', 'B']],
